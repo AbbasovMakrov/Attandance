@@ -1,0 +1,84 @@
+﻿@using System.Linq.Expressions
+@model Employee
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExcelId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExcelId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Job)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Job.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkDaysCount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WorkDaysCount)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Budget.Amount)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MoneyTransactions)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table table-bordered table-dark ">
+                <tr>
+                    <th>Amount</th>
+                    <th>Created At</th>
+                </tr>
+                @foreach (var transaction in Model.MoneyTransactions.OrderByDescending(mt => mt.CreatedAt))
+                {
+                    <tr>
+                        @{
+                            var isInTransaction = transaction.Type == MoneyTransaction.TransactionType.In;
+                        }
+                        <td class="@(isInTransaction ? "bg-success" : "bg-danger")">@(isInTransaction ? "+":"-") @transaction.Amount</td>
+                        <td>@transaction.CreatedAt</td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

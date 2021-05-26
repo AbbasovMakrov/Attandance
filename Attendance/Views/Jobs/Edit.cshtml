@@ -1,0 +1,51 @@
+﻿@model JobViewModel
+@using Attendance.Extenstions
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="JobModel.Name" class="control-label"></label>
+                <input asp-for="JobModel.Name" class="form-control" />
+                <span asp-validation-for="JobModel.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobModel.MinSalary" class="control-label"></label>
+                <input asp-for="JobModel.MinSalary" class="form-control" />
+                <span asp-validation-for="JobModel.MinSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobModel.MaxSalary" class="control-label"></label>
+                <input asp-for="JobModel.MaxSalary" class="form-control" />
+                <span asp-validation-for="JobModel.MaxSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobModel.Discounts" class="control-label"></label>
+                <select asp-for="DiscountsIds" class="form-control" asp-items="Model.Discounts.ToSelectList(x => new SelectListItem 
+                       { Text = x.Type , Value = x.Id.ToString() , Selected = Model.JobModel.Discounts.Any(d => d.Id == x.Id) })"></select>
+                <span asp-validation-for="DiscountsIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobModel.StartTime" class="control-label"></label>
+                <input asp-for="JobModel.StartTime" class="form-control" />
+                <span asp-validation-for="JobModel.StartTime" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="JobModel.CreatedAt" />
+            <input type="hidden" asp-for="JobModel.Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

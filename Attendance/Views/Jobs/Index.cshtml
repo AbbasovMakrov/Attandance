@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Job>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxSalary)
+            </th>
+      
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+   
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name , "Details","Jobs",new { id = item.Id } )
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxSalary)
+            </td>
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+        
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Id">Edit</a> 
+                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
+                </form>
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

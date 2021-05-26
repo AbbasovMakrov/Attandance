@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Attendance.Data.Entities.ExcelFile>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.IsParsed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.IsParsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedAt)
+            </td>
+            <td>
+                @if (!item.IsParsed)
+                {
+                    <form asp-action="Parse" asp-route-id="@item.Id" method="post">
+                        <button type="submit" class="btn btn-success">
+                            <span class="fa fa-check"></span>
+                        </button>
+                    </form>
+                }
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
